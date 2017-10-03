@@ -1,17 +1,32 @@
 /* jshint esversion:6 */
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Platform, FlatList } from 'react-native';
 import DeckTile from './DeckTile';
 import { white } from '../../utils/colors';
+import { fetchAll } from '../../utils/StorageManagement';
 
-export default class AllDecks extends React.Component {
+class AllDecks extends React.Component {
+
+  componentDidMount() {
+    this.props.fetchAll();
+  }
+
+  renderItem({ item }) {
+    return (
+      <View style={styles.item}>
+        <DeckTile title={item.title} size={item.questions.length} />
+      </View>
+    );
+  }
+
   render() {
     return (
-      <View style={{flex: 1}}>
-        <View style={styles.item}>
-          <DeckTile title={'Udacity'} size={2} />
-        </View>
-      </View>
+      <FlatList
+        data={Object.values(this.props.state)}
+        keyExtractor={item => item.title}
+        renderItem={this.renderItem}
+      />
     );
   }
 }
@@ -23,8 +38,8 @@ const styles = StyleSheet.create({
     padding: 10,
     marginLeft: 15,
     marginRight: 15,
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 10,
+    marginBottom: 10,
     justifyContent: 'center',
     shadowRadius: 3,
     shadowOpacity: 0.8,
@@ -35,3 +50,18 @@ const styles = StyleSheet.create({
     },
 },
 });
+
+function mapStateToProps(state) {
+  return {
+    state: state
+  };
+}
+
+function mapDispatchtoProps(dispatch) {
+  return {
+    fetchAll: () => dispatch(fetchAll()),
+
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchtoProps)(AllDecks);

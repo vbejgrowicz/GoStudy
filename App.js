@@ -10,9 +10,6 @@ import store from './utils/ReduxStore';
 
 export default class App extends React.Component {
 
-  componentDidMount() {
-  }
-
   render() {
     return (
       <Provider store={store}>

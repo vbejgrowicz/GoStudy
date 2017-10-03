@@ -6,6 +6,7 @@ import SubmitBtn from './utils/SubmitBtn';
 import TitleInput from './utils/TitleInput';
 import { white, darkTeal } from '../../utils/colors';
 import { addDeck } from '../../actions';
+import { submitEntry } from '../../utils/StorageManagement';
 
 
 class AddDeck extends React.Component {
@@ -20,8 +21,8 @@ class AddDeck extends React.Component {
 
   submit = () => {
     const { title } = this.state;
-    console.log('Submitted :', title)
     this.props.add(title);
+    submitEntry(title);
     this.setState({ title: null });
   }
 
