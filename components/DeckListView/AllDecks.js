@@ -1,10 +1,11 @@
 /* jshint esversion:6 */
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Platform, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Platform, FlatList, AsyncStorage } from 'react-native';
 import DeckTile from './DeckTile';
 import { white } from '../../utils/colors';
-import { fetchAll } from '../../utils/StorageManagement';
+import { fetchAll, removeAll } from '../../utils/StorageManagement';
+import ResetBtn from './utils/ResetBtn';
 
 class AllDecks extends React.Component {
 
@@ -20,35 +21,51 @@ class AllDecks extends React.Component {
     );
   }
 
+  emptyComponent() {
+    return (
+      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+        <Text style={styles.emptyText}>
+          Currently no decks available, add a deck to continue.
+        </Text>
+      </View>
+    );
+  }
+
+  reset() {
+    this.props.removeAll();
+  }
+
   render() {
     return (
-      <FlatList
-        data={Object.values(this.props.state)}
-        keyExtractor={item => item.title}
-        renderItem={this.renderItem}
-      />
+      <View style={styles.container}>
+        <FlatList
+          data={Object.values(this.props.state)}
+          keyExtractor={item => item.title}
+          renderItem={this.renderItem}
+          ListEmptyComponent={this.emptyComponent}
+          ListFooterComponent={() => Object.values(this.props.state).length > 0 ? <ResetBtn onReset={this.reset.bind(this)} /> : null}
+        />
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   item: {
-    backgroundColor: white,
-    borderRadius: Platform.OS === 'ios' ? 16 : 2,
-    padding: 10,
-    marginLeft: 15,
-    marginRight: 15,
     marginTop: 10,
     marginBottom: 10,
-    justifyContent: 'center',
-    shadowRadius: 3,
-    shadowOpacity: 0.8,
-    shadowColor: 'rgba(0,0,0,24)',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-},
+    marginLeft: 10,
+    marginRight: 10,
+    alignItems: 'stretch',
+  },
+  emptyText: {
+    marginVertical: 30,
+    marginHorizontal: 40,
+    fontSize: 25,
+  }
 });
 
 function mapStateToProps(state) {
@@ -60,7 +77,7 @@ function mapStateToProps(state) {
 function mapDispatchtoProps(dispatch) {
   return {
     fetchAll: () => dispatch(fetchAll()),
-
+    removeAll: () => dispatch(removeAll()),
   };
 }
 

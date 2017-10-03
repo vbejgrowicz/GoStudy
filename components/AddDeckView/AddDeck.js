@@ -6,8 +6,7 @@ import SubmitBtn from './utils/SubmitBtn';
 import TitleInput from './utils/TitleInput';
 import { white, darkTeal } from '../../utils/colors';
 import { addDeck } from '../../actions';
-import { submitEntry } from '../../utils/StorageManagement';
-
+import { submitDeck } from '../../utils/StorageManagement';
 
 class AddDeck extends React.Component {
   state = {
@@ -22,8 +21,9 @@ class AddDeck extends React.Component {
   submit = () => {
     const { title } = this.state;
     this.props.add(title);
-    submitEntry(title);
+    submitDeck(title);
     this.setState({ title: null });
+    this.props.navigation.goBack();
   }
 
   render() {
@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
 function mapDispatchtoProps(dispatch) {
   return {
     add: (title) => dispatch(addDeck(title)),
-    goBack: () => navigation.goBack(),
   }
 }
 
