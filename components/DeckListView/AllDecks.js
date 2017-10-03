@@ -1,11 +1,11 @@
 /* jshint esversion:6 */
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Platform, FlatList, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, Platform, FlatList, TouchableOpacity } from 'react-native';
 import DeckTile from './DeckTile';
 import { white } from '../../utils/colors';
 import { fetchAll, removeAll } from '../../utils/StorageManagement';
-import ResetBtn from './utils/ResetBtn';
+import Button from '../../utils/Button';
 
 class AllDecks extends React.Component {
 
@@ -15,9 +15,14 @@ class AllDecks extends React.Component {
 
   renderItem({ item }) {
     return (
-      <View style={styles.item}>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => this.props.navigation.navigate(
+          'DeckDetails',
+          { deck: item }
+        )}>
         <DeckTile title={item.title} size={item.questions.length} />
-      </View>
+      </TouchableOpacity>
     );
   }
 
@@ -41,9 +46,9 @@ class AllDecks extends React.Component {
         <FlatList
           data={Object.values(this.props.state)}
           keyExtractor={item => item.title}
-          renderItem={this.renderItem}
+          renderItem={this.renderItem.bind(this)}
           ListEmptyComponent={this.emptyComponent}
-          ListFooterComponent={() => Object.values(this.props.state).length > 0 ? <ResetBtn onReset={this.reset.bind(this)} /> : null}
+          ListFooterComponent={() => Object.values(this.props.state).length > 0 ? <Button onPress={this.reset.bind(this)}>Remove All Decks</Button> : null}
         />
       </View>
     );
@@ -62,8 +67,8 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   emptyText: {
-    marginVertical: 30,
-    marginHorizontal: 40,
+    textAlign: 'center',
+    justifyContent: 'center',
     fontSize: 25,
   }
 });

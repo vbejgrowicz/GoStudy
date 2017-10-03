@@ -26,9 +26,10 @@ export function submitDeck (title) {
 export function removeAll () {
   return function removeAllThunk(dispatch) {
     AsyncStorage.getAllKeys((err, keys) => {
+      console.log('remove key: ', keys);
         AsyncStorage.multiRemove(keys, (err) => {
           keys.map((result, i, store) => {
-            let key = store[i][0];
+            let key = store[i];
             dispatch(removeDeck(key));
         });
       });

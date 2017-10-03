@@ -1,41 +1,43 @@
 /* jshint esversion:6 */
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, Platform } from 'react-native';
-import { teal, white } from '../../../utils/colors';
+import { Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import { teal, white } from '../utils/colors';
 
-export default function SubmitBtn ({ onSubmit }) {
+export default function Button ({ children, onPress, style }) {
   return (
     <TouchableOpacity
-      style= {Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
-      onPress={onSubmit}>
-        <Text style={styles.submitBtnText}>Submit</Text>
+      style={Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn}
+      onPress={onPress}>
+      <Text style={[styles.BtnText, style]}>{children}</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  iosSubmitBtn: {
+  iosBtn: {
+    margin:10,
     backgroundColor: teal,
     padding: 10,
     borderRadius: 7,
-    height:45,
+    height:40,
     marginLeft: 40,
     marginRight: 40,
   },
-  androidSubmitBtn: {
+  androidBtn: {
+    margin:10,
     backgroundColor: teal,
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,
     borderRadius: 2,
-    height:45,
+    height:40,
     alignSelf: 'flex-end',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  submitBtnText: {
+  BtnText: {
   color: white,
-  fontSize: 22,
+  fontSize: 17,
   textAlign: 'center',
 }
 });

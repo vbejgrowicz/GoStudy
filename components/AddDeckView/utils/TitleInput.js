@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     marginLeft: 40,
     marginRight: 40,
-    padding: 10,
   },
   input: {
     textAlign: 'center',

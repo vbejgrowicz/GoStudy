@@ -4,6 +4,7 @@ import { Platform } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import AllDecks from './DeckListView/AllDecks';
 import AddDeck from './AddDeckView/AddDeck';
+import DeckDetails from './DeckView/DeckDetails';
 import { white, teal, darkTeal, gray } from '../utils/colors';
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
@@ -53,4 +54,13 @@ export const Navigator = StackNavigator({
   Home: {
     screen: Tabs,
   },
+  DeckDetails: {
+    screen: DeckDetails,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: teal,
+      }
+    }
+  }
 });

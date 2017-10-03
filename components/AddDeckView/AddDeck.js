@@ -1,12 +1,13 @@
 /* jshint esversion:6 */
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Platform } from 'react-native';
-import SubmitBtn from './utils/SubmitBtn';
+import { StyleSheet, Text, View, Platform, KeyboardAvoidingView, Keyboard } from 'react-native';
 import TitleInput from './utils/TitleInput';
 import { white, darkTeal } from '../../utils/colors';
 import { addDeck } from '../../actions';
 import { submitDeck } from '../../utils/StorageManagement';
+
+import Button from '../../utils/Button';
 
 class AddDeck extends React.Component {
   state = {
@@ -20,21 +21,24 @@ class AddDeck extends React.Component {
 
   submit = () => {
     const { title } = this.state;
-    this.props.add(title);
-    submitDeck(title);
-    this.setState({ title: null });
-    this.props.navigation.goBack();
+    if (title !== null) {
+      this.props.add(title);
+      submitDeck(title);
+      this.setState({ title: null });
+      Keyboard.dismiss();
+      this.props.navigation.goBack();
+    }
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={styles.deck}>
           <Text style={styles.header}>What is the title of your new deck?</Text>
           <TitleInput title={this.state.title} onChange={this.updateTitle}/>
-          <SubmitBtn onSubmit={this.submit}/>
+          <Button onPress={this.submit.bind(this)}>Submit</Button>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
