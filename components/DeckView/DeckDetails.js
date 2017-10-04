@@ -11,7 +11,7 @@ class DeckDetails extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { deck } = navigation.state.params
       return {
-        title: `${deck}`
+        title: `${deck}`,
       }
   }
 

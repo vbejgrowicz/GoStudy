@@ -10,23 +10,29 @@ import { submitDeck } from '../../utils/StorageManagement';
 import Button from '../../utils/Button';
 
 class AddDeck extends React.Component {
-  state = {
-    title: null
+  constructor() {
+    super();
+    this.state = {
+      title: null
+    };
   }
 
-  updateTitle = (text) => {
+  updateTitle(text) {
     console.log(text);
-    this.setState({ title: text });
+    this.setState({ title : text });
   }
 
-  submit = () => {
+  submit() {
+    Keyboard.dismiss();
     const { title } = this.state;
-    if (title !== null) {
+    if ((title !== null) && (title !== "")) {
       this.props.add(title);
       submitDeck(title);
-      this.setState({ title: null });
-      Keyboard.dismiss();
-      this.props.navigation.goBack();
+      this.setState({ title : null });
+      this.props.navigation.navigate(
+        'DeckDetails',
+        { deck: title }
+      );
     }
   }
 
@@ -34,9 +40,8 @@ class AddDeck extends React.Component {
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={styles.deck}>
-          <Text style={styles.header}>What is the title of your new deck?</Text>
-          <TitleInput title={this.state.title} onChange={this.updateTitle}/>
-          <Button onPress={this.submit.bind(this)}>Submit</Button>
+          <TitleInput title={this.state.title} onChange={this.updateTitle.bind(this)}/>
+          <Button onPress={this.submit.bind(this)}>Create Deck</Button>
         </View>
       </KeyboardAvoidingView>
     );
@@ -73,7 +78,7 @@ const styles = StyleSheet.create({
 function mapDispatchtoProps(dispatch) {
   return {
     add: (title) => dispatch(addDeck(title)),
-  }
+  };
 }
 
 export default connect(null, mapDispatchtoProps)(AddDeck);

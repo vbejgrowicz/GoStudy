@@ -1,25 +1,13 @@
 /* jshint esversion:6 */
 import { AsyncStorage } from 'react-native';
-import { addDeck, addCard, removeDeck } from '../actions';
+import { removeDeck } from '../actions';
 
 export function fetchAll () {
-  return function fetchAllThunk(dispatch) {
-    AsyncStorage.getAllKeys((err, keys) => {
-      AsyncStorage.multiGet(keys, (err, stores) => {
-        stores.map((result, i, store) => {
-          const data = JSON.parse(store[i][1]);
-          dispatch(addDeck(data.title));
-          const questions = data.questions;
-          questions.map((res) => {
-            const question = res.question;
-            const answer = res.answer;
-            dispatch(addCard(data.title, question, answer));
-          });
-        });
-      });
-    });
-  };
+  return AsyncStorage.getAllKeys().then((keys) => {
+    return AsyncStorage.multiGet(keys);
+  });
 }
+
 
 export function submitDeck (title) {
   return AsyncStorage.setItem(title, JSON.stringify({

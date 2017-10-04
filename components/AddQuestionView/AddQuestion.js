@@ -48,7 +48,7 @@ class AddQuestion extends React.Component {
         <View style={styles.deck}>
           <Input value={this.state.question} placeholder='Enter Question...' onChange={this.updateQuestion}/>
           <Input value={this.state.answer} placeholder='Enter Answer...' onChange={this.updateAnswer}/>
-          <Button onPress={this.submit.bind(this)}>Submit</Button>
+          <Button onPress={this.submit.bind(this)}>Add Card</Button>
         </View>
       </KeyboardAvoidingView>
     );

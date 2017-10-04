@@ -1,16 +1,36 @@
 /* jshint esversion:6 */
 import React from 'react';
 import { connect } from 'react-redux';
+import { AppLoading } from 'expo';
 import { StyleSheet, Text, View, Platform, FlatList, TouchableOpacity } from 'react-native';
 import DeckTile from './DeckTile';
-import { white } from '../../utils/colors';
 import { fetchAll, removeAll } from '../../utils/StorageManagement';
+import { addDeck, addCard } from '../../actions';
 import Button from '../../utils/Button';
+import EmptyList from './EmptyList';
 
 class AllDecks extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      ready: false,
+    };
+  }
 
   componentDidMount() {
-    this.props.fetchAll();
+    fetchAll()
+      .then((data) => {
+        data.map((key, i, result) => {
+          deck = JSON.parse(result[i][1]);
+          this.props.addDeck(deck.title);
+          const questions = deck.questions;
+          questions.map((card) => {
+            const question = card.question;
+            const answer = card.answer;
+            this.props.addCard(deck.title, question, answer);
+          });
+        });
+      }).then(() => this.setState({ ready : true }));
   }
 
   renderItem({ item }) {
@@ -26,28 +46,25 @@ class AllDecks extends React.Component {
     );
   }
 
-  emptyComponent() {
-    return (
-      <View style={{alignItems: 'center', justifyContent: 'center'}}>
-        <Text style={styles.emptyText}>
-          Currently no decks available, add a deck to continue.
-        </Text>
-      </View>
-    );
-  }
-
   reset() {
     this.props.removeAll();
   }
 
   render() {
+    const { ready } = this.state;
+
+    if (ready === false) {
+      return (
+        <AppLoading />
+      );
+    }
     return (
       <View style={styles.container}>
         <FlatList
           data={Object.values(this.props.state)}
           keyExtractor={item => item.title}
           renderItem={this.renderItem.bind(this)}
-          ListEmptyComponent={this.emptyComponent}
+          ListEmptyComponent={<EmptyList />}
           ListFooterComponent={() => Object.values(this.props.state).length > 0 ? <Button onPress={this.reset.bind(this)}>Remove All Decks</Button> : null}
         />
       </View>
@@ -65,11 +82,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     alignItems: 'stretch',
-  },
-  emptyText: {
-    textAlign: 'center',
-    justifyContent: 'center',
-    fontSize: 25,
   }
 });
 
@@ -83,6 +95,8 @@ function mapDispatchtoProps(dispatch) {
   return {
     fetchAll: () => dispatch(fetchAll()),
     removeAll: () => dispatch(removeAll()),
+    addDeck: (deck) => dispatch(addDeck(deck)),
+    addCard: (card) => dispatch(addCard(card)),
   };
 }
 

@@ -67,6 +67,7 @@ export const Navigator = StackNavigator({
   AddQuestion: {
     screen: AddQuestion,
     navigationOptions: {
+      title: 'Add Card',
       headerTintColor: white,
       headerStyle: {
         backgroundColor: teal,
