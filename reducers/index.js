@@ -1,5 +1,5 @@
 /* jshint esversion:6 */
-import { ADD_DECK, REMOVE_DECK } from '../actions';
+import { ADD_DECK, ADD_CARD, REMOVE_DECK } from '../actions';
 
 const initialState = {
 };
@@ -12,6 +12,19 @@ export default function decks (state = initialState, action) {
           title: action.title,
           questions: []
         }}
+      );
+    case ADD_CARD:
+    console.log(state);
+    console.log(action.deck);
+      return Object.assign({}, state,
+        {[action.deck]: Object.assign({}, state[action.deck], {
+          questions: state[action.deck].questions.concat(
+            {
+              question: action.question,
+              answer: action.answer,
+            }
+          )
+        })}
       );
     case REMOVE_DECK:
       return Object.keys(state).reduce((result, key) => {

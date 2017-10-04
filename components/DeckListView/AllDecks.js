@@ -19,7 +19,7 @@ class AllDecks extends React.Component {
         style={styles.item}
         onPress={() => this.props.navigation.navigate(
           'DeckDetails',
-          { deck: item }
+          { deck: item.title }
         )}>
         <DeckTile title={item.title} size={item.questions.length} />
       </TouchableOpacity>

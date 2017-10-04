@@ -1,5 +1,6 @@
 /* jshint esversion:6 */
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import { darkTeal, white } from '../../utils/colors';
 import Button from '../../utils/Button';
@@ -8,25 +9,33 @@ import Button from '../../utils/Button';
 class DeckDetails extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
-    const { title } = navigation.state.params.deck
+    const { deck } = navigation.state.params
       return {
-        title: `${title}`
+        title: `${deck}`
       }
   }
 
   render() {
-    const { deck } = this.props.navigation.state.params
+    const { deck } = this.props.navigation.state.params;
+    const item = Object.values(this.props.state[deck]);
+    const title = item[0];
+    const questions = item[1];
     return (
       <View style={styles.container}>
         <View style={{padding: 20}}>
           <Text style={styles.title}>
-            {deck.title}
+            {title}
           </Text>
           <Text style={styles.cards}>
-            {deck.questions.length} Cards
+            {questions.length} Cards
           </Text>
         </View>
-        <Button onPress={() => console.log('Pressed Add Card')}>Add Card</Button>
+        <Button
+          onPress={() => this.props.navigation.navigate(
+            'AddQuestion',
+            { deck: title })}>
+            Add Card
+        </Button>
         <Button onPress={() => console.log('Pressed Start Quiz')}>Start Quiz</Button>
       </View>
     );
@@ -61,4 +70,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DeckDetails;
+function mapStateToProps(state) {
+  return {
+    state: state
+  }
+}
+
+export default connect(mapStateToProps)(DeckDetails);

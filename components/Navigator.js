@@ -5,6 +5,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import AllDecks from './DeckListView/AllDecks';
 import AddDeck from './AddDeckView/AddDeck';
 import DeckDetails from './DeckView/DeckDetails';
+import AddQuestion from './AddQuestionView/AddQuestion';
 import { white, teal, darkTeal, gray } from '../utils/colors';
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
@@ -56,6 +57,15 @@ export const Navigator = StackNavigator({
   },
   DeckDetails: {
     screen: DeckDetails,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: teal,
+      }
+    }
+  },
+  AddQuestion: {
+    screen: AddQuestion,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
