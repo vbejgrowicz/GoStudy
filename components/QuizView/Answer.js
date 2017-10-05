@@ -9,24 +9,38 @@ export default function Answer ({ showAnswer, answerVisable, Answer }) {
 
   if (answerVisable === false) {
     return (
-      <View>
-        <TouchableOpacity onPress={showAnswer}>
-          <Text style={styles.text}>Show Answer</Text>
-        </TouchableOpacity>
+      <View style={styles.container}>
+        <Button buttonStyle={styles.button} onPress={showAnswer}>
+          <Text style={styles.buttontxt}>Show Answer</Text>
+        </Button>
       </View>
     );
   }
   return (
-    <View>
+    <View style={styles.container}>
         <Text style={styles.text}>{Answer}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 3,
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   text: {
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: 25,
     color: darkTeal,
+  },
+  button: {
+    backgroundColor: 'transparent',
+  },
+  buttontxt: {
+    textAlign: 'center',
+    fontSize: 25,
+    color: 'red'
   }
 });

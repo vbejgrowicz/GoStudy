@@ -32,8 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     height:40,
     alignSelf: 'flex-end',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   BtnText: {
   color: white,

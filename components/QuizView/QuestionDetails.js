@@ -3,9 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Platform, TouchableOpacity } from 'react-native';
 import { darkTeal, white } from '../../utils/colors';
-import Button from '../Button';
 import Question from './Question';
 import Answer from './Answer';
+import ResponseButtons from './ResponseButtons';
 
 class QuestionDetails extends React.Component {
   constructor() {
@@ -40,23 +40,20 @@ render() {
   const { deck } = this.props.navigation.state.params;
   const questions = this.props.state[deck].questions;
   const num = this.state.questionNum;
+  const result = Math.round((this.state.numCorrect/questions.length) * 100);
   return (
-    <View style={styles.card}>
+    <View style={styles.container}>
       {num <= (questions.length -1) ? (
-        <View>
+        <View style={styles.card}>
+          <Text style={{padding: 10, color: darkTeal }}>Question {num + 1} of {questions.length}</Text>
           <Question Question={questions[num].question} />
           <Answer showAnswer={this.showAnswer.bind(this)} answerVisable={this.state.answerVisable} Answer={questions[num].answer}/>
-          <TouchableOpacity onPress={() => this.nextQuestion({ input: 'correct'})}>
-            <Text style={styles.text}>Correct</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.nextQuestion({ input: 'incorrect'})}>
-            <Text style={styles.text}>Incorrect</Text>
-          </TouchableOpacity>
+          <ResponseButtons Answer={this.nextQuestion.bind(this)}/>
         </View>
       ):(
-        <View>
-          <Text>End Of Quiz</Text>
-          <Text>{this.state.numCorrect}/{questions.length}</Text>
+        <View style={styles.card}>
+          <Text style={styles.result}>Score: {result}%</Text>
+          <Text style={[styles.result, {fontSize: 17}]}>{this.state.numCorrect} out of {questions.length} Correct</Text>
 
         </View>
       )}
@@ -66,9 +63,12 @@ render() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    margin: 20,
+  },
   card: {
     flex: 1,
-    margin: 50,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: white,
@@ -80,6 +80,12 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3,
     },
+  },
+  result: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 25,
+    color: darkTeal,
   },
 });
 

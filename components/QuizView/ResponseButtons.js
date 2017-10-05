@@ -4,27 +4,21 @@ import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native
 import Button from '../Button';
 import { darkTeal } from '../../utils/colors';
 
-export default function Question ({ Question }) {
+
+export default function ResponseButtons ({ Answer }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.question}>
-        {Question}
-      </Text>
+      <Button buttonStyle={{width:200, backgroundColor: 'green'}} onPress={() => Answer({ input: 'correct'})}>Correct</Button>
+      <Button buttonStyle={{width:200, backgroundColor: 'red'}} onPress={() => Answer({ input: 'incorrect'})}>Incorrect</Button>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 3,
     margin: 10,
+    flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  question: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 25,
-    color: darkTeal,
   },
 });

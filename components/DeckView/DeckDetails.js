@@ -22,7 +22,7 @@ class DeckDetails extends React.Component {
     const questions = item[1];
     return (
       <View style={styles.container}>
-        <View style={{padding: 20}}>
+        <View style={styles.label}>
           <Text style={styles.title}>
             {title}
           </Text>
@@ -30,17 +30,21 @@ class DeckDetails extends React.Component {
             {questions.length} Questions
           </Text>
         </View>
-        <Button
-          onPress={() => this.props.navigation.navigate(
-            'AddQuestion',
-            { deck: title })}>
-            Add Question
-        </Button>
-        <Button
-          onPress={() => this.props.navigation.navigate(
-            'QuestionDetails',
-            { deck: title })}>
-          Start Quiz</Button>
+        <View style={styles.buttons}>
+          <Button
+            onPress={() => this.props.navigation.navigate(
+              'AddQuestion',
+              { deck: title })}>
+              Add Question
+          </Button>
+          <Button
+            onPress={() => this.props.navigation.navigate(
+              'QuestionDetails',
+              { deck: title })}>
+            Start Quiz
+          </Button>
+        </View>
+
       </View>
     );
   }
@@ -49,9 +53,7 @@ class DeckDetails extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    margin: 20,
     backgroundColor: white,
     borderRadius: Platform.OS === 'ios' ? 16 : 2,
     shadowRadius: 3,
@@ -64,13 +66,24 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontSize: 50,
+    fontSize: 40,
+    fontWeight: 'bold',
     color: darkTeal,
   },
   cards: {
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: 20,
     color: darkTeal,
+  },
+  buttons: {
+    flex: 2,
+    margin: Platform.OS === 'ios' ? 0 : 10,
+    justifyContent: Platform.OS === 'ios' ? 'center' : 'flex-end',
+    alignItems: 'center',
+  },
+  label: {
+    flex: 2,
+    justifyContent: 'center',
   }
 });
 
