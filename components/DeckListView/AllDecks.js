@@ -6,7 +6,7 @@ import { StyleSheet, Text, View, Platform, FlatList, TouchableOpacity } from 're
 import DeckTile from './DeckTile';
 import { fetchAll, removeAll } from '../../utils/StorageManagement';
 import { addDeck, addCard } from '../../actions';
-import Button from '../../utils/Button';
+import Button from '../Button';
 import EmptyList from './EmptyList';
 
 class AllDecks extends React.Component {
@@ -96,7 +96,7 @@ function mapDispatchtoProps(dispatch) {
     fetchAll: () => dispatch(fetchAll()),
     removeAll: () => dispatch(removeAll()),
     addDeck: (deck) => dispatch(addDeck(deck)),
-    addCard: (card) => dispatch(addCard(card)),
+    addCard: (title, question, answer) => dispatch(addCard(title, question, answer)),
   };
 }
 

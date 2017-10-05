@@ -3,10 +3,10 @@ import React from 'react';
 import { Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { teal, white } from '../utils/colors';
 
-export default function Button ({ children, onPress, style }) {
+export default function Button ({ children, onPress, style, buttonStyle}) {
   return (
     <TouchableOpacity
-      style={Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn}
+      style={[Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn, buttonStyle]}
       onPress={onPress}>
       <Text style={[styles.BtnText, style]}>{children}</Text>
     </TouchableOpacity>

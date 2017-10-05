@@ -3,16 +3,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import { darkTeal, white } from '../../utils/colors';
-import Button from '../../utils/Button';
+import Button from '../Button';
 
 
 class DeckDetails extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-    const { deck } = navigation.state.params
+  static navigationOptions({ navigation }){
+    const { deck } = navigation.state.params;
       return {
         title: `${deck}`,
-      }
+      };
   }
 
   render() {
@@ -27,16 +27,20 @@ class DeckDetails extends React.Component {
             {title}
           </Text>
           <Text style={styles.cards}>
-            {questions.length} Cards
+            {questions.length} Questions
           </Text>
         </View>
         <Button
           onPress={() => this.props.navigation.navigate(
             'AddQuestion',
             { deck: title })}>
-            Add Card
+            Add Question
         </Button>
-        <Button onPress={() => console.log('Pressed Start Quiz')}>Start Quiz</Button>
+        <Button
+          onPress={() => this.props.navigation.navigate(
+            'QuestionDetails',
+            { deck: title })}>
+          Start Quiz</Button>
       </View>
     );
   }
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     state: state
-  }
+  };
 }
 
 export default connect(mapStateToProps)(DeckDetails);

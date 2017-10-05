@@ -6,8 +6,7 @@ import Input from './utils/Input';
 import { white, darkTeal } from '../../utils/colors';
 import { addCard } from '../../actions';
 import { submitCard } from '../../utils/StorageManagement';
-
-import Button from '../../utils/Button';
+import Button from '../Button';
 
 class AddQuestion extends React.Component {
   state = {
@@ -48,7 +47,7 @@ class AddQuestion extends React.Component {
         <View style={styles.deck}>
           <Input value={this.state.question} placeholder='Enter Question...' onChange={this.updateQuestion}/>
           <Input value={this.state.answer} placeholder='Enter Answer...' onChange={this.updateAnswer}/>
-          <Button onPress={this.submit.bind(this)}>Add Card</Button>
+          <Button onPress={this.submit.bind(this)}>Add Question</Button>
         </View>
       </KeyboardAvoidingView>
     );

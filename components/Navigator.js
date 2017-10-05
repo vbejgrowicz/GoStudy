@@ -6,6 +6,7 @@ import AllDecks from './DeckListView/AllDecks';
 import AddDeck from './AddDeckView/AddDeck';
 import DeckDetails from './DeckView/DeckDetails';
 import AddQuestion from './AddQuestionView/AddQuestion';
+import QuestionDetails from './QuizView/QuestionDetails';
 import { white, teal, darkTeal, gray } from '../utils/colors';
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
@@ -67,7 +68,16 @@ export const Navigator = StackNavigator({
   AddQuestion: {
     screen: AddQuestion,
     navigationOptions: {
-      title: 'Add Card',
+      title: 'Add Question',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: teal,
+      }
+    }
+  },
+  QuestionDetails: {
+    screen: QuestionDetails,
+    navigationOptions: {
       headerTintColor: white,
       headerStyle: {
         backgroundColor: teal,

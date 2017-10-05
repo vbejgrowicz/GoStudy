@@ -14,8 +14,6 @@ export default function decks (state = initialState, action) {
         }}
       );
     case ADD_CARD:
-    console.log(state);
-    console.log(action.deck);
       return Object.assign({}, state,
         {[action.deck]: Object.assign({}, state[action.deck], {
           questions: state[action.deck].questions.concat(

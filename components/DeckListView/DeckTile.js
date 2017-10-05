@@ -10,7 +10,7 @@ export default function DeckTile ({ title, size }) {
         {title}
       </Text>
       <Text style={[styles.text, {fontSize: 20}]}>
-        {size} Cards
+        {size} Questions
       </Text>
     </View>
   );

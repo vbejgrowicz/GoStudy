@@ -6,8 +6,7 @@ import TitleInput from './utils/TitleInput';
 import { white, darkTeal } from '../../utils/colors';
 import { addDeck } from '../../actions';
 import { submitDeck } from '../../utils/StorageManagement';
-
-import Button from '../../utils/Button';
+import Button from '../Button';
 
 class AddDeck extends React.Component {
   constructor() {
