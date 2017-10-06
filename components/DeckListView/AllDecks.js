@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppLoading } from 'expo';
-import { StyleSheet, Text, View, Platform, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, FlatList, TouchableOpacity, Animated } from 'react-native';
 import DeckTile from './DeckTile';
 import { fetchAll, removeAll } from '../../utils/StorageManagement';
 import { addDeck, addCard } from '../../actions';
@@ -14,6 +14,7 @@ class AllDecks extends React.Component {
     super();
     this.state = {
       ready: false,
+      fadeAnim: new Animated.Value(0),
     };
   }
 
@@ -31,16 +32,28 @@ class AllDecks extends React.Component {
           });
         });
       }).then(() => this.setState({ ready : true }));
+
+    Animated.timing(
+      this.state.fadeAnim,
+      {
+        toValue: 1,
+        duration: 1500,
+      }
+    ).start();
+  }
+
+  onItemPress({ item }) {
+    this.props.navigation.navigate(
+      'DeckDetails',
+      { deck: item.title }
+    );
   }
 
   renderItem({ item }) {
     return (
       <TouchableOpacity
         style={styles.item}
-        onPress={() => this.props.navigation.navigate(
-          'DeckDetails',
-          { deck: item.title }
-        )}>
+        onPress={() => this.onItemPress({ item })}>
         <DeckTile title={item.title} size={item.questions.length} />
       </TouchableOpacity>
     );
@@ -51,7 +64,7 @@ class AllDecks extends React.Component {
   }
 
   render() {
-    const { ready } = this.state;
+    const { ready, fadeAnim } = this.state;
 
     if (ready === false) {
       return (
@@ -59,7 +72,7 @@ class AllDecks extends React.Component {
       );
     }
     return (
-      <View style={styles.container}>
+      <Animated.View style={[styles.container, {opacity: fadeAnim}]}>
         <FlatList
           data={Object.values(this.props.state)}
           keyExtractor={item => item.title}
@@ -67,7 +80,7 @@ class AllDecks extends React.Component {
           ListEmptyComponent={<EmptyList />}
           ListFooterComponent={() => Object.values(this.props.state).length > 0 ? <Button onPress={this.reset.bind(this)}>Remove All Decks</Button> : null}
         />
-      </View>
+      </Animated.View>
     );
   }
 }

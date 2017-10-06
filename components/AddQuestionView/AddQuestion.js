@@ -43,34 +43,22 @@ class AddQuestion extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior='padding' style={styles.container}>
-        <View style={styles.deck}>
-          <Input value={this.state.question} placeholder='Enter Question...' onChange={this.updateQuestion}/>
-          <Input value={this.state.answer} placeholder='Enter Answer...' onChange={this.updateAnswer}/>
-          <Button onPress={this.submit.bind(this)}>Add Question</Button>
-        </View>
+      <KeyboardAvoidingView behavior='padding' style={styles.deck}>
+        <Input value={this.state.question} placeholder='Enter Question...' onChange={this.updateQuestion}/>
+        <Input value={this.state.answer} placeholder='Enter Answer...' onChange={this.updateAnswer}/>
+        <Button onPress={this.submit.bind(this)}>Add Question</Button>
       </KeyboardAvoidingView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    marginLeft: 20,
-    marginRight: 20,
-  },
-  header: {
-    fontSize: 30,
-    color: darkTeal,
-    textAlign: 'center',
-  },
   deck: {
-    backgroundColor:white,
+    flex: 1,
+    margin: 20,
+    justifyContent: 'center',
+    backgroundColor: white,
     borderRadius: Platform.OS === 'ios' ? 16 : 2,
-    padding: 20,
     shadowRadius: 3,
     shadowOpacity: 0.8,
     shadowColor: 'rgba(0,0,0,24)',

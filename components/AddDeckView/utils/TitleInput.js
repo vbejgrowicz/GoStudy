@@ -1,7 +1,7 @@
 /* jshint esversion:6 */
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
-import { darkTeal, ightTeal, white } from '../../../utils/colors';
+import { darkTeal } from '../../../utils/colors';
 
 export default function TitleInput ({ title, onChange }) {
   return (
@@ -10,6 +10,7 @@ export default function TitleInput ({ title, onChange }) {
         style={styles.input}
         placeholder='Enter Title...'
         value={title}
+        maxLength={40}
         onChangeText={(text) => onChange(text)}
       />
     </View>
@@ -19,12 +20,12 @@ export default function TitleInput ({ title, onChange }) {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'stretch',
-    marginLeft: 40,
-    marginRight: 40,
+    marginHorizontal: 10,
   },
   input: {
     textAlign: 'center',
-    height: 40,
+    fontSize: 20,
+    height: 50,
     color: darkTeal
   },
 });

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   question: {
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 22,
     color: darkTeal,
   },
 });

@@ -8,7 +8,7 @@ export default function EmptyList () {
   return (
     <View style={styles.container}>
       <MaterialCommunityIcons name ='cards' size={200} style={styles.icon} />
-      <Text style={[styles.text, {fontSize: 30}]}>
+      <Text style={[styles.text, {fontSize: 22}]}>
         No Decks Available.
       </Text>
       <Text style={styles.text}>

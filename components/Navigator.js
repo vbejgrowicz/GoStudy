@@ -7,7 +7,7 @@ import AddDeck from './AddDeckView/AddDeck';
 import DeckDetails from './DeckView/DeckDetails';
 import AddQuestion from './AddQuestionView/AddQuestion';
 import QuestionDetails from './QuizView/QuestionDetails';
-import { white, teal, darkTeal, gray } from '../utils/colors';
+import { white, teal, darkTeal } from '../utils/colors';
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
 const Tabs = TabNavigator({
@@ -32,7 +32,7 @@ const Tabs = TabNavigator({
     },
     tabBarOptions: {
       labelStyle: {
-        fontSize: 15
+        fontSize: 17
       },
       indicatorStyle: {
         backgroundColor: darkTeal

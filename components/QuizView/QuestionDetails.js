@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   result: {
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 22,
     color: darkTeal,
   },
 });

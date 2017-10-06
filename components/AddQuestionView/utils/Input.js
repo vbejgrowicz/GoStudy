@@ -10,6 +10,7 @@ export default function Input ({ value, placeholder, onChange }) {
         style={styles.input}
         placeholder={placeholder}
         value={value}
+        maxLength={100}
         onChangeText={(text) => onChange(text)}
       />
     </View>
@@ -19,11 +20,12 @@ export default function Input ({ value, placeholder, onChange }) {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'stretch',
-
+    marginHorizontal: 10,
   },
   input: {
     textAlign: 'center',
-    height: 40,
+    fontSize: 20,
+    height: 50,
     color: darkTeal
   },
 });

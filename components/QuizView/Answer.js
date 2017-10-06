@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import Button from '../Button';
-import { darkTeal } from '../../utils/colors';
+import { teal } from '../../utils/colors';
 
 
 export default function Answer ({ showAnswer, answerVisable, Answer }) {
@@ -32,15 +32,15 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    fontSize: 25,
-    color: darkTeal,
+    fontSize: 22,
+    color: teal,
   },
   button: {
     backgroundColor: 'transparent',
   },
   buttontxt: {
     textAlign: 'center',
-    fontSize: 25,
+    fontSize: 22,
     color: 'red'
   }
 });

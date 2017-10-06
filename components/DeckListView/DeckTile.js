@@ -6,10 +6,10 @@ import { darkTeal, white } from '../../utils/colors';
 export default function DeckTile ({ title, size }) {
   return (
     <View style={styles.tileContainer}>
-      <Text style={[styles.text, {fontSize: 30}]}>
+      <Text style={[styles.text, {fontSize: 22, fontWeight: 'bold'}]}>
         {title}
       </Text>
-      <Text style={[styles.text, {fontSize: 20}]}>
+      <Text style={[styles.text, {fontSize: 22}]}>
         {size} Questions
       </Text>
     </View>
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     },
   },
   text: {
+    textAlign: 'center',
     color: darkTeal,
   }
 });

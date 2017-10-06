@@ -38,10 +38,8 @@ class AddDeck extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-        <View style={styles.deck}>
-          <TitleInput title={this.state.title} onChange={this.updateTitle.bind(this)}/>
-          <Button onPress={this.submit.bind(this)}>Create Deck</Button>
-        </View>
+        <TitleInput title={this.state.title} onChange={this.updateTitle.bind(this)}/>
+        <Button onPress={this.submit.bind(this)}>Create Deck</Button>
       </KeyboardAvoidingView>
     );
   }
@@ -50,20 +48,10 @@ class AddDeck extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    margin: 20,
     justifyContent: 'center',
-    marginLeft: 20,
-    marginRight: 20,
-  },
-  header: {
-    fontSize: 30,
-    color: darkTeal,
-    textAlign: 'center',
-  },
-  deck: {
-    backgroundColor:white,
+    backgroundColor: white,
     borderRadius: Platform.OS === 'ios' ? 16 : 2,
-    padding: 20,
     shadowRadius: 3,
     shadowOpacity: 0.8,
     shadowColor: 'rgba(0,0,0,24)',

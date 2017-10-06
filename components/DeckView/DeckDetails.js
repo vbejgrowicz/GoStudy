@@ -30,21 +30,18 @@ class DeckDetails extends React.Component {
             {questions.length} Questions
           </Text>
         </View>
-        <View style={styles.buttons}>
-          <Button
-            onPress={() => this.props.navigation.navigate(
-              'AddQuestion',
-              { deck: title })}>
-              Add Question
-          </Button>
-          <Button
-            onPress={() => this.props.navigation.navigate(
-              'QuestionDetails',
-              { deck: title })}>
-            Start Quiz
-          </Button>
-        </View>
-
+        <Button
+          onPress={() => this.props.navigation.navigate(
+            'AddQuestion',
+            { deck: title })}>
+            Add Question
+        </Button>
+        <Button
+          onPress={() => this.props.navigation.navigate(
+            'QuestionDetails',
+            { deck: title })}>
+          Start Quiz
+        </Button>
       </View>
     );
   }
@@ -54,6 +51,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 20,
+    padding: 20,
     backgroundColor: white,
     borderRadius: Platform.OS === 'ios' ? 16 : 2,
     shadowRadius: 3,
@@ -65,24 +63,20 @@ const styles = StyleSheet.create({
     },
   },
   title: {
+    padding: 10,
     textAlign: 'center',
-    fontSize: 40,
+    fontSize: 22,
     fontWeight: 'bold',
     color: darkTeal,
   },
   cards: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 22,
     color: darkTeal,
-  },
-  buttons: {
-    flex: 2,
-    margin: Platform.OS === 'ios' ? 0 : 10,
-    justifyContent: Platform.OS === 'ios' ? 'center' : 'flex-end',
-    alignItems: 'center',
   },
   label: {
     flex: 2,
+    margin: 20,
     justifyContent: 'center',
   }
 });
