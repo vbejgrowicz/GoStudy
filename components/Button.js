@@ -1,12 +1,13 @@
 /* jshint esversion:6 */
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
-import { teal, white } from '../utils/colors';
+import { teal, white, gray } from '../utils/colors';
 
-export default function Button ({ children, onPress, style, buttonStyle}) {
+export default function Button ({ children, onPress, style, buttonStyle, disabled }) {
   return (
     <TouchableOpacity
-      style={[Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn, buttonStyle]}
+      disabled={disabled}
+      style={[Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn, buttonStyle, disabled ? styles.disabledBtn: null]}
       onPress={onPress}>
       <Text style={[styles.BtnText, style]}>{children}</Text>
     </TouchableOpacity>
@@ -37,5 +38,8 @@ const styles = StyleSheet.create({
   color: white,
   fontSize: 17,
   textAlign: 'center',
-}
+  },
+  disabledBtn: {
+    backgroundColor: gray
+  }
 });

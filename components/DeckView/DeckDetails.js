@@ -30,18 +30,21 @@ class DeckDetails extends React.Component {
             {questions.length} Questions
           </Text>
         </View>
-        <Button
-          onPress={() => this.props.navigation.navigate(
-            'AddQuestion',
-            { deck: title })}>
-            Add Question
-        </Button>
-        <Button
-          onPress={() => this.props.navigation.navigate(
-            'QuestionDetails',
-            { deck: title })}>
-          Start Quiz
-        </Button>
+        <View style={styles.buttons}>
+          <Button
+            onPress={() => this.props.navigation.navigate(
+              'AddQuestion',
+              { deck: title })}>
+              Add Question
+          </Button>
+          <Button
+            disabled={questions.length === 0}
+            onPress={() => this.props.navigation.navigate(
+              'QuestionDetails',
+              { deck: title })}>
+            Start Quiz
+          </Button>
+        </View>
       </View>
     );
   }
@@ -78,6 +81,10 @@ const styles = StyleSheet.create({
     flex: 2,
     margin: 20,
     justifyContent: 'center',
+  },
+  buttons: {
+    flex:2,
+    justifyContent: Platform.OS === 'ios' ? 'center' : 'flex-end',
   }
 });
 

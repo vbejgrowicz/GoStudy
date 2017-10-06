@@ -37,7 +37,7 @@ class AllDecks extends React.Component {
       this.state.fadeAnim,
       {
         toValue: 1,
-        duration: 1500,
+        duration: 300,
       }
     ).start();
   }
@@ -88,12 +88,11 @@ class AllDecks extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 10,
   },
   item: {
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
-    marginRight: 10,
+    marginVertical: 10,
+    marginHorizontal: 20,
     alignItems: 'stretch',
   }
 });

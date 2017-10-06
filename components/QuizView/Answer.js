@@ -4,7 +4,6 @@ import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native
 import Button from '../Button';
 import { teal } from '../../utils/colors';
 
-
 export default function Answer ({ showAnswer, answerVisable, Answer }) {
 
   if (answerVisable === false) {

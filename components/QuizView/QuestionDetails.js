@@ -1,7 +1,7 @@
 /* jshint esversion:6 */
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Platform, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Platform, TouchableOpacity, Easing, Animated } from 'react-native';
 import { darkTeal, white } from '../../utils/colors';
 import Question from './Question';
 import Answer from './Answer';

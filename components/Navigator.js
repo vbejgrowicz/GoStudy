@@ -1,6 +1,6 @@
 /* jshint esversion:6 */
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Easing, Animated } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import AllDecks from './DeckListView/AllDecks';
 import AddDeck from './AddDeckView/AddDeck';
@@ -63,7 +63,7 @@ export const Navigator = StackNavigator({
       headerStyle: {
         backgroundColor: teal,
       }
-    }
+    },
   },
   AddQuestion: {
     screen: AddQuestion,
@@ -84,4 +84,23 @@ export const Navigator = StackNavigator({
       }
     }
   }
-});
+},
+{
+  transitionConfig: () => ({
+   transitionSpec: {
+     duration: 300,
+   },
+    screenInterpolator: sceneProps => {
+      const { layout, position, scene } = sceneProps;
+       const { index } = scene;
+       console.log(index);
+
+       const opacity = position.interpolate({
+         inputRange: [index - 0.7, index, index + 0.7],
+         outputRange: [0.3, 1, 0.3],
+       });
+       return { opacity };
+   },
+  })
+}
+);
