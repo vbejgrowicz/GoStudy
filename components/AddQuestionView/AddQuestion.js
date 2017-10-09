@@ -70,7 +70,7 @@ class AddQuestion extends React.Component {
           placeholder="Enter Answer..."
           onChange={this.updateAnswer}
         />
-        <Button onPress={this.submit}>Add Question</Button>
+        <Button disabled={this.state.question === '' || this.state.answer === ''} onPress={this.submit}>Add Question</Button>
       </KeyboardAvoidingView>
     );
   }

@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 20,
-    padding: 20,
     backgroundColor: white,
     borderRadius: Platform.OS === 'ios' ? 16 : 2,
     shadowRadius: 3,
@@ -34,11 +33,11 @@ const styles = StyleSheet.create({
   },
   label: {
     flex: 2,
-    margin: 20,
     justifyContent: 'center',
   },
   buttons: {
     flex: 2,
+    margin: Platform.OS === 'ios' ? 0 : 20,
     justifyContent: Platform.OS === 'ios' ? 'center' : 'flex-end',
   },
 });

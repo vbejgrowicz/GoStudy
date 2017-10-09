@@ -5,7 +5,7 @@ import Button from '../Button';
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
+    margin: Platform.OS === 'ios' ? 0 : 20,
     flex: 3,
     alignSelf: 'stretch',
     justifyContent: Platform.OS === 'ios' ? 'center' : 'flex-end',

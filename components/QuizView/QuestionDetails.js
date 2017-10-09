@@ -6,6 +6,7 @@ import { darkTeal, white } from '../../utils/colors';
 import Question from './Question';
 import Answer from './Answer';
 import ResponseButtons from './ResponseButtons';
+import Button from '../Button';
 
 const styles = StyleSheet.create({
   container: {
@@ -50,6 +51,8 @@ class QuestionDetails extends React.Component {
     };
     this.showAnswer = this.showAnswer.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
+    this.startOver = this.startOver.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   showAnswer() {
@@ -62,6 +65,15 @@ class QuestionDetails extends React.Component {
       this.setState({ numCorrect: this.state.numCorrect + 1 });
     }
     this.setState({ questionNum: this.state.questionNum + 1 });
+  }
+
+  startOver() {
+    this.setState({ numCorrect: 0 });
+    this.setState({ questionNum: 0 });
+  }
+
+  goBack() {
+    this.props.navigation.goBack();
   }
 
   render() {
@@ -86,10 +98,22 @@ class QuestionDetails extends React.Component {
           </View>
         ) : (
           <View style={styles.card}>
-            <Text style={styles.result}>Score: {result}%</Text>
-            <Text style={[styles.result, { fontSize: 17 }]}>
-              {this.state.numCorrect} out of {questions.length} Correct
-            </Text>
+            <View style={{ flex: 2, justifyContent: 'center', alignSelf: 'stretch' }}>
+              <Text style={styles.result}>Score: {result}%</Text>
+              <Text style={[styles.result, { fontSize: 17 }]}>
+                {this.state.numCorrect} out of {questions.length} Correct
+              </Text>
+            </View>
+            <View style={{
+                flex: 2,
+                justifyContent: Platform.OS === 'ios' ? 'center' : 'flex-end',
+                alignSelf: 'stretch',
+                margin: Platform.OS === 'ios' ? 0 : 20,
+              }}
+            >
+              <Button onPress={this.startOver}>Restart Quiz</Button>
+              <Button onPress={this.goBack}>Back to Deck</Button>
+            </View>
           </View>
         )}
       </View>

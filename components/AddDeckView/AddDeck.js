@@ -57,7 +57,7 @@ class AddDeck extends React.Component {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <TitleInput title={this.state.title} onChange={this.updateTitle} />
-        <Button onPress={this.submit}>Create Deck</Button>
+        <Button disabled={this.state.title === ''} onPress={this.submit}>Create Deck</Button>
       </KeyboardAvoidingView>
     );
   }
