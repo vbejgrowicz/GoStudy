@@ -1,54 +1,9 @@
-/* jshint esversion:6 */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import { darkTeal, white } from '../../utils/colors';
 import Button from '../Button';
-
-
-class DeckDetails extends React.Component {
-
-  static navigationOptions({ navigation }){
-    const { deck } = navigation.state.params;
-      return {
-        title: `${deck}`,
-      };
-  }
-
-  render() {
-    const { deck } = this.props.navigation.state.params;
-    const item = Object.values(this.props.state[deck]);
-    const title = item[0];
-    const questions = item[1];
-    return (
-      <View style={styles.container}>
-        <View style={styles.label}>
-          <Text style={styles.title}>
-            {title}
-          </Text>
-          <Text style={styles.cards}>
-            {questions.length} Questions
-          </Text>
-        </View>
-        <View style={styles.buttons}>
-          <Button
-            onPress={() => this.props.navigation.navigate(
-              'AddQuestion',
-              { deck: title })}>
-              Add Question
-          </Button>
-          <Button
-            disabled={questions.length === 0}
-            onPress={() => this.props.navigation.navigate(
-              'QuestionDetails',
-              { deck: title })}>
-            Start Quiz
-          </Button>
-        </View>
-      </View>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -83,14 +38,66 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttons: {
-    flex:2,
+    flex: 2,
     justifyContent: Platform.OS === 'ios' ? 'center' : 'flex-end',
-  }
+  },
 });
+
+class DeckDetails extends React.Component {
+  static navigationOptions({ navigation }) {
+    const { deck } = navigation.state.params;
+    return {
+      title: `${deck}`,
+    };
+  }
+
+  render() {
+    const { deck } = this.props.navigation.state.params;
+    const item = Object.values(this.props.decks[deck]);
+    const title = item[0];
+    const questions = item[1];
+    return (
+      <View style={styles.container}>
+        <View style={styles.label}>
+          <Text style={styles.title}>
+            {title}
+          </Text>
+          <Text style={styles.cards}>
+            {questions.length} Questions
+          </Text>
+        </View>
+        <View style={styles.buttons}>
+          <Button
+            onPress={() => this.props.navigation.navigate(
+              'AddQuestion',
+              { deck: title },
+            )}
+          >
+              Add Question
+          </Button>
+          <Button
+            disabled={questions.length === 0}
+            onPress={() => this.props.navigation.navigate(
+              'QuestionDetails',
+              { deck: title },
+            )}
+          >
+            Start Quiz
+          </Button>
+        </View>
+      </View>
+    );
+  }
+}
+
+DeckDetails.propTypes = {
+  decks: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+};
 
 function mapStateToProps(state) {
   return {
-    state: state
+    decks: state,
   };
 }
 

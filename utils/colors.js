@@ -1,4 +1,3 @@
-/*jshint esversion:6 */
 export const white = '#FFFFFA';
 export const black = '#122C34';
 export const teal = '#05A8AA';

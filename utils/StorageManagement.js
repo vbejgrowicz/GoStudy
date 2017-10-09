@@ -1,31 +1,29 @@
-/* jshint esversion:6 */
 import { AsyncStorage } from 'react-native';
 import { removeDeck } from '../actions';
 
-export function fetchAll () {
-  return AsyncStorage.getAllKeys().then((keys) => {
-    return AsyncStorage.multiGet(keys);
-  });
+export function fetchAll() {
+  return AsyncStorage.getAllKeys().then(keys =>
+    AsyncStorage.multiGet(keys));
 }
 
 
-export function submitDeck (title) {
+export function submitDeck(title) {
   return AsyncStorage.setItem(title, JSON.stringify({
-    title: title,
-    questions: []
+    title,
+    questions: [],
   }));
 }
 
-export function submitCard (deck, question, answer) {
+export function submitCard(deck, question, answer) {
   return AsyncStorage.getItem(deck, (err, result) => {
     const data = JSON.parse(result);
-    AsyncStorage.mergeItem(deck,  JSON.stringify({
-      questions: data.questions.concat({question, answer})
+    AsyncStorage.mergeItem(deck, JSON.stringify({
+      questions: data.questions.concat({ question, answer }),
     }));
   });
 }
 
-export function removeAll () {
+export function removeAll() {
   return function removeAllThunk(dispatch) {
     AsyncStorage.getAllKeys((err, keys) => {
         AsyncStorage.multiRemove(keys, (err) => {

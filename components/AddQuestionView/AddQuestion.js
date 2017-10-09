@@ -1,56 +1,12 @@
-/* jshint esversion:6 */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Platform, KeyboardAvoidingView, Keyboard } from 'react-native';
+import { StyleSheet, Platform, KeyboardAvoidingView, Keyboard } from 'react-native';
 import Input from './utils/Input';
-import { white, darkTeal } from '../../utils/colors';
+import { white } from '../../utils/colors';
 import { addCard } from '../../actions';
 import { submitCard } from '../../utils/StorageManagement';
 import Button from '../Button';
-
-class AddQuestion extends React.Component {
-  state = {
-    deck: null,
-    question: null,
-    answer: null
-  }
-
-  componentDidMount() {
-    this.setState({ deck: this.props.navigation.state.params.deck });
-  }
-
-  updateQuestion = (text) => {
-    console.log('question: ', this.state.question, ' answer: ', this.state.answer);
-    this.setState({ question: text });
-  }
-
-  updateAnswer = (text) => {
-    console.log('question: ', this.state.question, ' answer: ', this.state.answer);
-    this.setState({ answer: text });
-  }
-
-  submit = () => {
-    const { deck, question, answer } = this.state;
-    if ((question && answer) !== null) {
-      this.props.add(deck, question, answer);
-      submitCard(deck, question, answer);
-      this.setState({ question: null });
-      this.setState({ answer: null });
-      Keyboard.dismiss();
-      this.props.navigation.goBack();
-    }
-  }
-
-  render() {
-    return (
-      <KeyboardAvoidingView behavior='padding' style={styles.deck}>
-        <Input value={this.state.question} placeholder='Enter Question...' onChange={this.updateQuestion}/>
-        <Input value={this.state.answer} placeholder='Enter Answer...' onChange={this.updateAnswer}/>
-        <Button onPress={this.submit.bind(this)}>Add Question</Button>
-      </KeyboardAvoidingView>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
   deck: {
@@ -69,10 +25,66 @@ const styles = StyleSheet.create({
   },
 });
 
+class AddQuestion extends React.Component {
+  constructor({ navigation }) {
+    super();
+    this.state = {
+      deck: navigation.state.params.deck,
+      question: '',
+      answer: '',
+    };
+    this.updateQuestion = this.updateQuestion.bind(this);
+    this.updateAnswer = this.updateAnswer.bind(this);
+    this.submit = this.submit.bind(this);
+  }
+  updateQuestion(text) {
+    this.setState({ question: text });
+  }
+
+  updateAnswer(text) {
+    this.setState({ answer: text });
+  }
+
+  submit() {
+    const { deck, question, answer } = this.state;
+    if ((question && answer) !== '') {
+      this.props.add(deck, question, answer);
+      submitCard(deck, question, answer);
+      this.setState({ question: '' });
+      this.setState({ answer: '' });
+      Keyboard.dismiss();
+      this.props.navigation.goBack();
+    }
+  }
+
+  render() {
+    return (
+      <KeyboardAvoidingView behavior="padding" style={styles.deck}>
+        <Input
+          value={this.state.question}
+          placeholder="Enter Question..."
+          onChange={this.updateQuestion}
+        />
+        <Input
+          value={this.state.answer}
+          placeholder="Enter Answer..."
+          onChange={this.updateAnswer}
+        />
+        <Button onPress={this.submit}>Add Question</Button>
+      </KeyboardAvoidingView>
+    );
+  }
+}
+
+AddQuestion.propTypes = {
+  add: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired,
+};
+
 function mapDispatchtoProps(dispatch) {
   return {
     add: (deck, question, answer) => dispatch(addCard(deck, question, answer)),
-  }
+  };
 }
 
 export default connect(null, mapDispatchtoProps)(AddQuestion);

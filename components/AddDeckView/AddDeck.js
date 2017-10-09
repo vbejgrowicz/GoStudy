@@ -1,49 +1,12 @@
-/* jshint esversion:6 */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Platform, KeyboardAvoidingView, Keyboard } from 'react-native';
+import { StyleSheet, Platform, KeyboardAvoidingView, Keyboard } from 'react-native';
 import TitleInput from './utils/TitleInput';
-import { white, darkTeal } from '../../utils/colors';
+import { white } from '../../utils/colors';
 import { addDeck } from '../../actions';
 import { submitDeck } from '../../utils/StorageManagement';
 import Button from '../Button';
-
-class AddDeck extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      title: null
-    };
-  }
-
-  updateTitle(text) {
-    console.log(text);
-    this.setState({ title : text });
-  }
-
-  submit() {
-    Keyboard.dismiss();
-    const { title } = this.state;
-    if ((title !== null) && (title !== "")) {
-      this.props.add(title);
-      submitDeck(title);
-      this.setState({ title : null });
-      this.props.navigation.navigate(
-        'DeckDetails',
-        { deck: title }
-      );
-    }
-  }
-
-  render() {
-    return (
-      <KeyboardAvoidingView behavior='padding' style={styles.container}>
-        <TitleInput title={this.state.title} onChange={this.updateTitle.bind(this)}/>
-        <Button onPress={this.submit.bind(this)}>Create Deck</Button>
-      </KeyboardAvoidingView>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -62,9 +25,53 @@ const styles = StyleSheet.create({
   },
 });
 
+class AddDeck extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      title: '',
+    };
+    this.updateTitle = this.updateTitle.bind(this);
+    this.submit = this.submit.bind(this);
+  }
+
+  updateTitle(text) {
+    this.setState({ title: text });
+  }
+
+  submit() {
+    Keyboard.dismiss();
+    const { title } = this.state;
+    if (title !== '') {
+      this.props.add(title);
+      submitDeck(title);
+      this.setState({ title: '' });
+      this.props.navigation.navigate(
+        'DeckDetails',
+        { deck: title },
+      );
+    }
+  }
+
+  render() {
+    return (
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <TitleInput title={this.state.title} onChange={this.updateTitle} />
+        <Button onPress={this.submit}>Create Deck</Button>
+      </KeyboardAvoidingView>
+    );
+  }
+}
+
+AddDeck.propTypes = {
+  add: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired,
+};
+
+
 function mapDispatchtoProps(dispatch) {
   return {
-    add: (title) => dispatch(addDeck(title)),
+    add: title => dispatch(addDeck(title)),
   };
 }
 

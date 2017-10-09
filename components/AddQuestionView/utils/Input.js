@@ -1,21 +1,7 @@
-/* jshint esversion:6 */
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
+import PropTypes from 'prop-types';
+import { StyleSheet, View, TextInput } from 'react-native';
 import { darkTeal } from '../../../utils/colors';
-
-export default function Input ({ value, placeholder, onChange }) {
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder={placeholder}
-        value={value}
-        maxLength={100}
-        onChangeText={(text) => onChange(text)}
-      />
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +12,26 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     height: 50,
-    color: darkTeal
+    color: darkTeal,
   },
 });
+
+export default function Input({ value, placeholder, onChange }) {
+  return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder={placeholder}
+        value={value}
+        maxLength={100}
+        onChangeText={text => onChange(text)}
+      />
+    </View>
+  );
+}
+
+Input.propTypes = {
+  value: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};

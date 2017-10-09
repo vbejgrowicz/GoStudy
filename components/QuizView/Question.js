@@ -1,18 +1,7 @@
-/* jshint esversion:6 */
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
-import Button from '../Button';
+import PropTypes from 'prop-types';
+import { View, Text, StyleSheet } from 'react-native';
 import { darkTeal } from '../../utils/colors';
-
-export default function Question ({ Question }) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.question}>
-        {Question}
-      </Text>
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -28,3 +17,17 @@ const styles = StyleSheet.create({
     color: darkTeal,
   },
 });
+
+export default function Question({ textQuestion }) {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.question}>
+        {textQuestion}
+      </Text>
+    </View>
+  );
+}
+
+Question.propTypes = {
+  textQuestion: PropTypes.string.isRequired,
+};

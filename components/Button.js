@@ -1,18 +1,7 @@
-/* jshint esversion:6 */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { teal, white, gray } from '../utils/colors';
-
-export default function Button ({ children, onPress, style, buttonStyle, disabled }) {
-  return (
-    <TouchableOpacity
-      disabled={disabled}
-      style={[Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn, buttonStyle, disabled ? styles.disabledBtn: null]}
-      onPress={onPress}>
-      <Text style={[styles.BtnText, style]}>{children}</Text>
-    </TouchableOpacity>
-  );
-}
 
 const styles = StyleSheet.create({
   iosBtn: {
@@ -35,11 +24,41 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   BtnText: {
-  color: white,
-  fontSize: 17,
-  textAlign: 'center',
+    color: white,
+    fontSize: 17,
+    textAlign: 'center',
   },
   disabledBtn: {
-    backgroundColor: gray
-  }
+    backgroundColor: gray,
+  },
 });
+
+export default function Button({
+  children, onPress, style, buttonStyle, disabled,
+}) {
+  return (
+    <TouchableOpacity
+      disabled={disabled}
+      style={[Platform.OS === 'ios' ?
+      styles.iosBtn : styles.androidBtn, buttonStyle,
+      disabled ? styles.disabledBtn : null]}
+      onPress={onPress}
+    >
+      <Text style={[styles.BtnText, style]}>{children}</Text>
+    </TouchableOpacity>
+  );
+}
+
+Button.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
+  onPress: PropTypes.func.isRequired,
+  style: PropTypes.object,
+  buttonStyle: PropTypes.object,
+  disabled: PropTypes.bool,
+};
+
+Button.defaultProps = {
+  disabled: false,
+  style: {},
+  buttonStyle: {},
+};

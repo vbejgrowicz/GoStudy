@@ -1,22 +1,7 @@
-/* jshint esversion:6 */
 import React from 'react';
-import { StyleSheet, Text, View, Platform } from 'react-native';
-import { darkTeal, lightTeal, white } from '../../utils/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-export default function EmptyList () {
-  return (
-    <View style={styles.container}>
-      <MaterialCommunityIcons name ='cards' size={200} style={styles.icon} />
-      <Text style={[styles.text, {fontSize: 22}]}>
-        No Decks Available.
-      </Text>
-      <Text style={styles.text}>
-        Add a deck to get started.
-      </Text>
-    </View>
-  );
-}
+import { StyleSheet, Text, View } from 'react-native';
+import { darkTeal } from '../../utils/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,5 +19,19 @@ const styles = StyleSheet.create({
     marginTop: 20,
     opacity: 0.8,
     color: darkTeal,
-  }
+  },
 });
+
+export default function EmptyList() {
+  return (
+    <View style={styles.container}>
+      <MaterialCommunityIcons name="cards" size={200} style={styles.icon} />
+      <Text style={[styles.text, { fontSize: 22 }]}>
+        No Decks Available.
+      </Text>
+      <Text style={styles.text}>
+        Add a deck to get started.
+      </Text>
+    </View>
+  );
+}

@@ -1,18 +1,7 @@
-/* jshint esversion:6 */
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import PropTypes from 'prop-types';
+import { View, StyleSheet, Platform } from 'react-native';
 import Button from '../Button';
-import { darkTeal } from '../../utils/colors';
-
-
-export default function ResponseButtons ({ Answer }) {
-  return (
-    <View style={styles.container}>
-      <Button buttonStyle={{backgroundColor: 'green'}} onPress={() => Answer({ input: 'correct'})}>Correct</Button>
-      <Button buttonStyle={{backgroundColor: 'red'}} onPress={() => Answer({ input: 'incorrect'})}>Incorrect</Button>
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -22,3 +11,20 @@ const styles = StyleSheet.create({
     justifyContent: Platform.OS === 'ios' ? 'center' : 'flex-end',
   },
 });
+
+export default function ResponseButtons({ Answer }) {
+  return (
+    <View style={styles.container}>
+      <Button buttonStyle={{ backgroundColor: 'green' }} onPress={() => Answer({ input: 'correct' })}>
+        Correct
+      </Button>
+      <Button buttonStyle={{ backgroundColor: 'red' }} onPress={() => Answer({ input: 'incorrect' })}>
+        Incorrect
+      </Button>
+    </View>
+  );
+}
+
+ResponseButtons.propTypes = {
+  Answer: PropTypes.func.isRequired,
+};

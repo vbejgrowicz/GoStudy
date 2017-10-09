@@ -1,4 +1,3 @@
-/* jshint esversion:6 */
 import React from 'react';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import { darkTeal, white } from '../../utils/colors';
