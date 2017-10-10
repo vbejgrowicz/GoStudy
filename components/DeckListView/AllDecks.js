@@ -34,16 +34,21 @@ class AllDecks extends React.Component {
 
   componentDidMount() {
     fetchAll()
-      .then((data) => {
-        data.map((key, i, result) => {
-          const deck = JSON.parse(result[i][1]);
-          const { questions } = deck;
-          this.props.addDeck(deck.title);
-          return questions.map((card) => {
-            const { question, answer } = card;
-            return this.props.addCard(deck.title, question, answer);
+      .then((res) => {
+        if (res !== null) {
+          const data = JSON.parse(res);
+          const dataArr = Object.entries(data);
+          dataArr.map((key, i, result) => {
+            const title = result[i][0];
+            const deck = result[i][1];
+            const { questions } = deck;
+            this.props.addDeck(title);
+            return questions.map((card) => {
+              const { question, answer } = card;
+              return this.props.addCard(title, question, answer);
+            });
           });
-        });
+        }
       }).then(() => this.setState({ ready: true }));
 
     Animated.timing(

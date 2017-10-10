@@ -34,7 +34,6 @@ class AddDeck extends React.Component {
     this.updateTitle = this.updateTitle.bind(this);
     this.submit = this.submit.bind(this);
   }
-
   updateTitle(text) {
     this.setState({ title: text });
   }

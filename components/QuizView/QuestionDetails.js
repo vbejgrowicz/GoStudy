@@ -7,6 +7,7 @@ import Question from './Question';
 import Answer from './Answer';
 import ResponseButtons from './ResponseButtons';
 import Button from '../Button';
+import { clearLocalNotification, setLocalNotification } from '../../utils/StorageManagement';
 
 const styles = StyleSheet.create({
   container: {
@@ -59,12 +60,16 @@ class QuestionDetails extends React.Component {
     this.setState({ answerVisable: true });
   }
 
-  nextQuestion({ input }) {
+  nextQuestion({ input, currentQuestion, totalQuestions }) {
     this.setState({ answerVisable: false });
     if (input === 'correct') {
       this.setState({ numCorrect: this.state.numCorrect + 1 });
     }
-    this.setState({ questionNum: this.state.questionNum + 1 });
+    this.setState({ questionNum: currentQuestion + 1 });
+    if (currentQuestion === totalQuestions) {
+      clearLocalNotification()
+        .then(setLocalNotification);
+    }
   }
 
   startOver() {
@@ -94,7 +99,11 @@ class QuestionDetails extends React.Component {
               answerVisable={this.state.answerVisable}
               textAnswer={questions[num].answer}
             />
-            <ResponseButtons Answer={this.nextQuestion} />
+            <ResponseButtons
+              Answer={this.nextQuestion}
+              currentQuestion={num}
+              totalQuestions={questions.length - 1}
+            />
           </View>
         ) : (
           <View style={styles.card}>

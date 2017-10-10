@@ -29,10 +29,11 @@ export default function decks(state = initialState, action) {
       );
     case REMOVE_DECK:
       return Object.keys(state).reduce((result, key) => {
+        const newResult = result;
         if (key !== action.title) {
-          result[key] = state[key];
+          newResult[key] = state[key];
         }
-        return result;
+        return newResult;
       }, {});
     default:
       return state;

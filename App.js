@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import Navigator from './components/Navigator';
 import AppStatusBar from './components/AppStatusBar';
 import store from './utils/ReduxStore';
+import { setLocalNotification } from './utils/StorageManagement';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,13 +12,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function App() {
-  return (
-    <Provider store={store}>
-      <View style={styles.container}>
-        <AppStatusBar />
-        <Navigator />
-      </View>
-    </Provider>
-  );
+export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+  render() {
+    return (
+      <Provider store={store}>
+        <View style={styles.container}>
+          <AppStatusBar />
+          <Navigator />
+        </View>
+      </Provider>
+    );
+  }
 }

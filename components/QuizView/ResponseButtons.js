@@ -12,13 +12,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ResponseButtons({ Answer }) {
+export default function ResponseButtons({ Answer, currentQuestion, totalQuestions }) {
   return (
     <View style={styles.container}>
-      <Button buttonStyle={{ backgroundColor: 'green' }} onPress={() => Answer({ input: 'correct' })}>
+      <Button buttonStyle={{ backgroundColor: 'green' }} onPress={() => Answer({ input: 'correct', currentQuestion, totalQuestions })}>
         Correct
       </Button>
-      <Button buttonStyle={{ backgroundColor: 'red' }} onPress={() => Answer({ input: 'incorrect' })}>
+      <Button buttonStyle={{ backgroundColor: 'red' }} onPress={() => Answer({ input: 'incorrect', currentQuestion, totalQuestions })}>
         Incorrect
       </Button>
     </View>
@@ -27,4 +27,6 @@ export default function ResponseButtons({ Answer }) {
 
 ResponseButtons.propTypes = {
   Answer: PropTypes.func.isRequired,
+  currentQuestion: PropTypes.number.isRequired,
+  totalQuestions: PropTypes.number.isRequired,
 };
