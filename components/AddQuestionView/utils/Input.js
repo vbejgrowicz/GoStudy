@@ -16,7 +16,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Input({ value, placeholder, onChange }) {
+export default function Input({
+  value,
+  placeholder,
+  onChange,
+  keyType,
+  disabled,
+  onSubmit,
+}) {
   return (
     <View style={styles.container}>
       <TextInput
@@ -25,6 +32,9 @@ export default function Input({ value, placeholder, onChange }) {
         value={value}
         maxLength={100}
         onChangeText={text => onChange(text)}
+        returnKeyType={keyType}
+        enablesReturnKeyAutomatically={disabled}
+        onSubmitEditing={placeholder === 'Enter Question...' ? null : onSubmit}
       />
     </View>
   );
@@ -34,4 +44,7 @@ Input.propTypes = {
   value: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  keyType: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func,
 };

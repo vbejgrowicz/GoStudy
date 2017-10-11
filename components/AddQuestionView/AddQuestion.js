@@ -62,13 +62,18 @@ class AddQuestion extends React.Component {
       <KeyboardAvoidingView behavior="padding" style={styles.deck}>
         <Input
           value={this.state.question}
+          keyType="next"
           placeholder="Enter Question..."
+          disabled={this.state.question === ''}
           onChange={this.updateQuestion}
         />
         <Input
           value={this.state.answer}
+          keyType="done"
           placeholder="Enter Answer..."
+          disabled={this.state.question === '' || this.state.answer === ''}
           onChange={this.updateAnswer}
+          onSubmit={this.submit}
         />
         <Button disabled={this.state.question === '' || this.state.answer === ''} onPress={this.submit}>Add Question</Button>
       </KeyboardAvoidingView>

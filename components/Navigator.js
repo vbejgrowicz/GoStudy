@@ -22,7 +22,7 @@ const MainTab = StackNavigator(
       screen: DeckDetails,
       path: '/DeckDetails',
       navigationOptions: {
-        tabBarVisable: false,
+        tabBarVisible: false,
         headerTintColor: white,
         headerStyle: {
           backgroundColor: teal,
@@ -33,6 +33,7 @@ const MainTab = StackNavigator(
       screen: AddQuestion,
       path: '/',
       navigationOptions: {
+        tabBarVisible: false,
         title: 'Add Question',
         headerTintColor: white,
         headerStyle: {
@@ -44,6 +45,7 @@ const MainTab = StackNavigator(
       screen: QuestionDetails,
       path: '/',
       navigationOptions: {
+        tabBarVisible: false,
         headerTintColor: white,
         headerStyle: {
           backgroundColor: teal,
@@ -89,7 +91,6 @@ const Navigator = TabNavigator({
     screen: MainTab,
     path: '/',
     navigationOptions: {
-      header: null,
       tabBarLabel: 'All Decks',
       tabBarIcon: (({ tintColor }) =>
         <MaterialCommunityIcons name="cards" size={26} color={tintColor} />),
