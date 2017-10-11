@@ -16,15 +16,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function TitleInput({ title, onChange }) {
+export default function TitleInput({ title, onChange, onPress }) {
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
+        autoCorrect={false}
         placeholder="Enter Title..."
         value={title}
         maxLength={40}
         onChangeText={text => onChange(text)}
+        onSubmitEditing={() => onPress()}
       />
     </View>
   );
@@ -33,4 +35,5 @@ export default function TitleInput({ title, onChange }) {
 TitleInput.propTypes = {
   title: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onPress: PropTypes.func.isRequired,
 };

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Platform } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
@@ -10,60 +9,20 @@ import AddQuestion from './AddQuestionView/AddQuestion';
 import QuestionDetails from './QuizView/QuestionDetails';
 import { white, teal, darkTeal } from '../utils/colors';
 
-const Tabs = TabNavigator(
-  {
-    Decks: {
-      screen: AllDecks,
-      navigationOptions: {
-        tabBarLabel: 'All Decks',
-        tabBarIcon: (({ tintColor }) =>
-          <MaterialCommunityIcons name="cards" size={26} color={tintColor} />),
-      },
-    },
-    AddDeck: {
-      screen: AddDeck,
-      navigationOptions: {
-        tabBarLabel: 'Add Deck',
-        tabBarIcon: (({ tintColor }) =>
-          <FontAwesome name="plus-square" size={26} color={tintColor} />),
-      },
-    },
-  },
-  {
-    navigationOptions: {
-      header: null,
-    },
-    tabBarOptions: {
-      labelStyle: {
-        fontSize: 17,
-      },
-      indicatorStyle: {
-        backgroundColor: darkTeal,
-      },
-      activeTintColor: Platform.OS === 'ios' ? teal : darkTeal,
-      style: {
-        height: 56,
-        backgroundColor: Platform.OS === 'ios' ? white : teal,
-        shadowColor: 'rgba(0, 0, 0, 0.24)',
-        shadowOffset: {
-          width: 0,
-          height: 3,
-        },
-        shadowRadius: 6,
-        shadowOpacity: 1,
-      },
-    },
-  },
-);
-
-const Navigator = StackNavigator(
+const MainTab = StackNavigator(
   {
     Home: {
-      screen: Tabs,
+      screen: AllDecks,
+      path: '/',
+      navigationOptions: {
+        header: null,
+      },
     },
     DeckDetails: {
       screen: DeckDetails,
+      path: '/DeckDetails',
       navigationOptions: {
+        tabBarVisable: false,
         headerTintColor: white,
         headerStyle: {
           backgroundColor: teal,
@@ -72,6 +31,7 @@ const Navigator = StackNavigator(
     },
     AddQuestion: {
       screen: AddQuestion,
+      path: '/',
       navigationOptions: {
         title: 'Add Question',
         headerTintColor: white,
@@ -82,6 +42,7 @@ const Navigator = StackNavigator(
     },
     QuestionDetails: {
       screen: QuestionDetails,
+      path: '/',
       navigationOptions: {
         headerTintColor: white,
         headerStyle: {
@@ -91,12 +52,13 @@ const Navigator = StackNavigator(
     },
   },
   {
+    mode: 'modal',
     transitionConfig: () => ({
       transitionSpec: {
-        duration: 500,
+        duration: 400,
       },
       screenInterpolator: (sceneProps) => {
-        const { position, scene } = sceneProps;
+        const { scene, position } = sceneProps;
         const { index } = scene;
         const opacity = position.interpolate({
           inputRange: [index - 1, index, index + 1],
@@ -108,4 +70,62 @@ const Navigator = StackNavigator(
   },
 );
 
+const AddTab = StackNavigator(
+  {
+    AddDeck: {
+      screen: AddDeck,
+      path: '/',
+    },
+  },
+  {
+    navigationOptions: {
+      header: null,
+    },
+  },
+);
+
+const Navigator = TabNavigator({
+  MainTab: {
+    screen: MainTab,
+    path: '/',
+    navigationOptions: {
+      header: null,
+      tabBarLabel: 'All Decks',
+      tabBarIcon: (({ tintColor }) =>
+        <MaterialCommunityIcons name="cards" size={26} color={tintColor} />),
+    },
+  },
+  AddTab: {
+    screen: AddTab,
+    path: '/',
+    navigationOptions: {
+      tabBarLabel: 'Add Deck',
+      tabBarIcon: (({ tintColor }) =>
+        <FontAwesome name="plus-square" size={26} color={tintColor} />),
+    },
+  },
+},
+{
+  tabBarOptions: {
+    labelStyle: {
+      fontSize: 17,
+    },
+    indicatorStyle: {
+      backgroundColor: darkTeal,
+    },
+    activeTintColor: Platform.OS === 'ios' ? teal : darkTeal,
+    style: {
+      height: 56,
+      backgroundColor: Platform.OS === 'ios' ? white : teal,
+      shadowColor: 'rgba(0, 0, 0, 0.24)',
+      shadowOffset: {
+        width: 0,
+        height: 3,
+      },
+      shadowRadius: 6,
+      shadowOpacity: 1,
+    },
+  },
+},
+);
 export default Navigator;

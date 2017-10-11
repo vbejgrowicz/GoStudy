@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux';
 import { AppLoading } from 'expo';
 import { StyleSheet, FlatList, TouchableOpacity, Animated } from 'react-native';
