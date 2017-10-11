@@ -26,7 +26,6 @@
   "dependencies": {
     "@expo/vector-icons": "^5.2.0",
     "expo": "^21.0.2",
-    "lodash": "^4.17.4",
     "npm": "^4.6.1",
     "prop-types": "^15.6.0",
     "react": "16.0.0-alpha.12",
