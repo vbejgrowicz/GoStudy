@@ -1,5 +1,14 @@
 {
   "expo": {
-    "sdkVersion": "21.0.0"
+    "sdkVersion": "21.0.0",
+    "orientation": "portrait",
+        "name": "GoStudy",
+        "description": "A mobile study app to keep you focused on the go.",
+        "slug": "GoStudy",
+        "version": "1.0",
+        "icon": "./bookicon.png",
+        "notification": {
+          "icon": "./bookicon.png",
+        },
   }
 }
